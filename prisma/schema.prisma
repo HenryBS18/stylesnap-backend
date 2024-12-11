@@ -12,3 +12,80 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String
+  password  String
+
+  clothes       Clothes[]
+  outfit        Outfit[]
+  collection    Collection[]
+  promptHistory PromptHistory[]
+}
+
+model Clothes {
+  id       Int    @id @default(autoincrement())
+  name     String
+  type     String
+  subtype  String
+  color    String
+  brand    String
+  photoUrl String @db.Text
+  userId   Int
+
+  outfitClothes OutfitClothes[]
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Outfit {
+  id               Int                @id @default(autoincrement())
+  userId           Int
+  outfitClothes    OutfitClothes[]
+  collectionOutfit CollectionOutfit[]
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model OutfitClothes {
+  id        Int @id @default(autoincrement())
+  outfitId  Int
+  clothesId Int
+
+  outfit  Outfit  @relation(fields: [outfitId], references: [id])
+  clothes Clothes @relation(fields: [clothesId], references: [id])
+}
+
+model Collection {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model CollectionOutfit {
+  id       Int @id @default(autoincrement())
+  outfitId Int
+
+  outfit Outfit @relation(fields: [outfitId], references: [id])
+}
+
+model PromptHistory {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  promptHistoryMessage PromptHistoryMessage[]
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PromptHistoryMessage {
+  id Int @id @default(autoincrement())
+  message String @db.Text
+  promptHistoryId Int
+
+  promptHistory PromptHistory @relation(fields: [promptHistoryId], references: [id])
+}
