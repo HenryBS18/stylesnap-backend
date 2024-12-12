@@ -20,7 +20,7 @@ export class UserService {
 
     const existedUser: User | null = await userRepo.findByEmail(email)
 
-    if (existedUser == null) {
+    if (existedUser != null) {
       throw new Error('Email is already used')
     }
 
