@@ -15,7 +15,7 @@ userRouter.post('/register', async (req: Request, res: Response) => {
       password
     })
 
-    res.cookie('session', token).status(200)
+    res.cookie('session', token).status(200).send()
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
@@ -31,7 +31,7 @@ userRouter.post('/login', async (req: Request, res: Response) => {
 
     const token: string = await userService.login(email, password)
 
-    res.cookie('session', token).status(200)
+    res.cookie('session', token).status(200).send()
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
