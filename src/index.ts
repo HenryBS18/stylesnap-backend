@@ -1,13 +1,15 @@
-import express from 'express'
+import express, { Application } from 'express'
+import { userRouter } from './routers'
 
-const app = express()
-const port = 3000
+const app: Application = express()
+const port: number = parseInt(process.env.PORT as string, 10)
 
-app.get('/', (req, res) => {
-  res.status(200).send({
-    'name': 'henry'
-  })
+app.use(express.json())
+
+app.use('/api/user', userRouter)
+
+app.use('*', (req, res) => {
+  res.status(404).send('Route not found')
 })
-
 
 app.listen(port, () => console.log(`Server up and running on: http://localhost:${port}`));
