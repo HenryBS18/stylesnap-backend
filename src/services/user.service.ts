@@ -48,7 +48,7 @@ export class UserService {
     return token
   }
 
-  public async login(email: string, password: string): Promise<String> {
+  public async login(email: string, password: string): Promise<string> {
     const user: User | null = await userRepo.findByEmail(email)
 
     if (user == null) {
