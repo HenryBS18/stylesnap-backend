@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express'
-import { UserService } from 'services'
+import { UserService } from '../services'
 
 const userService: UserService = new UserService()
 export const userRouter: Router = express.Router()
