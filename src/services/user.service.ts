@@ -14,6 +14,11 @@ interface RegisterData {
   password: string
 }
 
+interface LoginData {
+  email: string
+  password: string
+}
+
 export class UserService {
   public async register(data: RegisterData): Promise<string> {
     const { firstName, lastName = '', email, password } = data
@@ -48,7 +53,9 @@ export class UserService {
     return token
   }
 
-  public async login(email: string, password: string): Promise<string> {
+  public async login(data: LoginData): Promise<string> {
+    const { email, password } = data
+
     const user: User | null = await userRepo.findByEmail(email)
 
     if (user == null) {
