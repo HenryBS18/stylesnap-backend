@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { UserRepo } from "repositories/user.repo";
+import { UserRepo } from 'repositories';
 import { User } from "types";
 
 const userRepo: UserRepo = new UserRepo()
