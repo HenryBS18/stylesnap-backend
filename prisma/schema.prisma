@@ -23,6 +23,7 @@ model User {
   clothes       Clothes[]
   outfit        Outfit[]
   collection    Collection[]
+  planner       Planner[]
   promptHistory PromptHistory[]
 }
 
@@ -46,6 +47,7 @@ model Outfit {
   userId           Int
   outfitClothes    OutfitClothes[]
   collectionOutfit CollectionOutfit[]
+  outfitPlanner    OutfitPlanner[]
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -73,6 +75,25 @@ model CollectionOutfit {
   outfit Outfit @relation(fields: [outfitId], references: [id])
 }
 
+model Planner {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  userId Int
+
+  outfitPlanner OutfitPlanner[]
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model OutfitPlanner {
+  id        Int @id @default(autoincrement())
+  outfitId  Int
+  plannerId Int
+
+  outfit  Outfit  @relation(fields: [outfitId], references: [id])
+  planner Planner @relation(fields: [plannerId], references: [id])
+}
+
 model PromptHistory {
   id     Int @id @default(autoincrement())
   userId Int
@@ -83,8 +104,8 @@ model PromptHistory {
 }
 
 model PromptHistoryMessage {
-  id Int @id @default(autoincrement())
-  message String @db.Text
+  id              Int    @id @default(autoincrement())
+  message         String @db.Text
   promptHistoryId Int
 
   promptHistory PromptHistory @relation(fields: [promptHistoryId], references: [id])
