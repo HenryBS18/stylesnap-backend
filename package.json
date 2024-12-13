@@ -12,7 +12,9 @@
     "gen": "prisma generate"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/multer": "^1.4.12",
     "nodemon": "^3.1.7",
     "prisma": "^6.0.1",
@@ -20,8 +22,6 @@
   },
   "dependencies": {
     "@prisma/client": "^6.0.1",
-    "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.7",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "express": "^4.21.2",
