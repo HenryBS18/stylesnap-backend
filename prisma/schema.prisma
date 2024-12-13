@@ -31,7 +31,6 @@ model Clothes {
   id       Int    @id @default(autoincrement())
   name     String
   type     String
-  subtype  String
   color    String
   brand    String
   photoUrl String @db.Text
