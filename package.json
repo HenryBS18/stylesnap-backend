@@ -8,7 +8,8 @@
     "ts": "rm -rf dist/ && tsc -w",
     "dev": "nodemon ./dist/index.js",
     "migrate": "prisma migrate dev",
-    "admin": "prisma studio"
+    "admin": "prisma studio",
+    "gen": "prisma generate"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
