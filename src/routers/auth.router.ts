@@ -19,7 +19,7 @@ authRouter.post('/register', async (req: Request, res: Response) => {
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
-        error: error.message
+        message: error.message
       })
     }
   }
@@ -35,7 +35,7 @@ authRouter.post('/login', async (req: Request, res: Response) => {
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
-        error: error.message
+        message: error.message
       })
     }
   }
