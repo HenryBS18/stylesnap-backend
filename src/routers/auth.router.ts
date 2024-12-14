@@ -40,3 +40,16 @@ authRouter.post('/login', async (req: Request, res: Response) => {
     }
   }
 })
+
+
+authRouter.post('/logout', async (req: Request, res: Response) => {
+  try {
+    res.status(200).clearCookie('session').send()
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).send({
+        message: 'Failed to log out'
+      })
+    }
+  }
+})
