@@ -41,7 +41,6 @@ authRouter.post('/login', async (req: Request, res: Response) => {
   }
 })
 
-
 authRouter.post('/logout', async (req: Request, res: Response) => {
   try {
     res.status(200).clearCookie('session').send()
