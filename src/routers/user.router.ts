@@ -29,7 +29,7 @@ userRouter.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
 
-    const token: string = await userService.login(email, password)
+    const token: string = await userService.login({ email, password })
 
     res.cookie('session', token).status(200).send()
   } catch (error) {
