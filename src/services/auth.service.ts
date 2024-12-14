@@ -19,7 +19,7 @@ interface LoginData {
   password: string
 }
 
-export class UserService {
+export class AuthService {
   public async register(data: RegisterData): Promise<string> {
     const { firstName, lastName = '', email, password } = data
 

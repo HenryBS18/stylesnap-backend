@@ -1,4 +1,4 @@
-import { userRouter } from "./user.router";
+import { authRouter } from "./auth.router";
 import { clothesRouter } from "./clothes.router";
 
-export { userRouter, clothesRouter }
+export { authRouter, clothesRouter }

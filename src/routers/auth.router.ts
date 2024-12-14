@@ -1,10 +1,10 @@
 import express, { Router, Request, Response } from 'express'
-import { UserService } from '../services'
+import { AuthService } from '../services'
 
-const userService: UserService = new UserService()
-export const userRouter: Router = express.Router()
+const userService: AuthService = new AuthService()
+export const authRouter: Router = express.Router()
 
-userRouter.post('/register', async (req: Request, res: Response) => {
+authRouter.post('/register', async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, password } = req.body
 
@@ -25,7 +25,7 @@ userRouter.post('/register', async (req: Request, res: Response) => {
   }
 })
 
-userRouter.post('/login', async (req: Request, res: Response) => {
+authRouter.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
 
