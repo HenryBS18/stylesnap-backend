@@ -42,8 +42,9 @@ model Clothes {
 }
 
 model Outfit {
-  id               Int                @id @default(autoincrement())
-  userId           Int
+  id     Int @id @default(autoincrement())
+  userId Int
+
   outfitClothes    OutfitClothes[]
   collectionOutfit CollectionOutfit[]
   outfitPlanner    OutfitPlanner[]
@@ -61,17 +62,23 @@ model OutfitClothes {
 }
 
 model Collection {
-  id     Int @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   userId Int
+  name   String
+  type   String
+
+  collectionOutfit CollectionOutfit[]
 
   user User @relation(fields: [userId], references: [id])
 }
 
 model CollectionOutfit {
-  id       Int @id @default(autoincrement())
-  outfitId Int
+  id           Int @id @default(autoincrement())
+  collectionId Int
+  outfitId     Int
 
-  outfit Outfit @relation(fields: [outfitId], references: [id])
+  collection Collection @relation(fields: [collectionId], references: [id])
+  outfit     Outfit     @relation(fields: [outfitId], references: [id])
 }
 
 model Planner {
