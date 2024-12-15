@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express'
-import { clothesRouter, authRouter } from './routers'
+import { clothesRouter, authRouter, outfitRouter } from './routers'
 import { authMiddleware } from './middlewares/auth.middleware'
 
 const app: Application = express()
@@ -9,6 +9,7 @@ app.use(express.json())
 
 app.use('/api/', authRouter)
 app.use('/api/clothes', authMiddleware, clothesRouter)
+app.use('/api/outfit', authMiddleware, outfitRouter)
 
 app.use('*', (req: Request, res: Response) => {
   res.status(404).send('Route not found')
