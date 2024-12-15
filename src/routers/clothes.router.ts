@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import { UploadApiResponse } from 'cloudinary'
 import { ClothesService } from '../services'
@@ -8,7 +8,7 @@ const clothesService: ClothesService = new ClothesService()
 const upload = multer({
   dest: 'uploads/',
 })
-export const clothesRouter: Router = express.Router()
+export const clothesRouter: Router = Router()
 
 clothesRouter.post('/', upload.single('image'), async (req: Request, res: Response) => {
   try {

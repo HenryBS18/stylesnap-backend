@@ -1,8 +1,8 @@
-import express, { Router, Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 import { AuthService } from '../services'
 
 const userService: AuthService = new AuthService()
-export const authRouter: Router = express.Router()
+export const authRouter: Router = Router()
 
 authRouter.post('/register', async (req: Request, res: Response) => {
   try {

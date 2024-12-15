@@ -1,11 +1,11 @@
-import express, { Router, Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 import { OutfitService } from '../services'
 import { OutfitClothes } from '../types'
 import multer from 'multer'
 
 const outfitService: OutfitService = new OutfitService()
 const upload = multer()
-export const outfitRouter: Router = express.Router()
+export const outfitRouter: Router = Router()
 
 outfitRouter.post('/', upload.none(), async (req: Request, res: Response) => {
   try {
