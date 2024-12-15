@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import dotenv from 'dotenv'
 
-const secret = process.env.JWT_SECRET!
+dotenv.config()
+const secret: string = process.env.JWT_SECRET!
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.cookie?.replace('session=', '')
