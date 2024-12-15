@@ -10,7 +10,7 @@ export class OutfitRepo {
     })
   }
 
-  public async findOutfitByUserId(userId: number) {
+  public async findAllByUserId(userId: number) {
     return await db.outfit.findMany({
       where: {
         userId

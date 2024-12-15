@@ -29,7 +29,7 @@ export class OutfitService {
   }
 
   public async getAllOutfitByUserId(userId: number): Promise<OutfitClothesData[]> {
-    const outfits: Outfit[] = await outfitRepo.findOutfitByUserId(userId)
+    const outfits: Outfit[] = await outfitRepo.findAllByUserId(userId)
 
     const outfitClothes: OutfitClothesData[] = await Promise.all(
       outfits.map(async (e) => {
