@@ -48,3 +48,13 @@ export interface OutfitClothesData {
   id: number
   clothes: OutfitClothes[]
 }
+
+export interface Collection {
+  id?: number
+  userId: number
+}
+
+export interface CollectionOutfit {
+  id?: number
+  outfitId: number
+}
