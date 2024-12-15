@@ -39,7 +39,7 @@ export interface OutfitClothes {
   clothesId: number
 }
 
-export interface AddNewOutfitData {
+export interface CreateOutfitData {
   userId: number
   clothesIds: number[]
 }
@@ -52,9 +52,12 @@ export interface OutfitClothesData {
 export interface Collection {
   id?: number
   userId: number
+  name: string
+  type: string
 }
 
 export interface CollectionOutfit {
   id?: number
+  collectionId: number
   outfitId: number
 }

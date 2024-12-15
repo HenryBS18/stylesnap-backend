@@ -1,11 +1,11 @@
-import { AddNewOutfitData, Outfit, OutfitClothes, OutfitClothesData } from "../types";
+import { CreateOutfitData, Outfit, OutfitClothes, OutfitClothesData } from "../types";
 import { OutfitClothesRepo, OutfitRepo } from "../repositories";
 
 const outfitRepo: OutfitRepo = new OutfitRepo()
 const outfitClothesRepo: OutfitClothesRepo = new OutfitClothesRepo()
 
 export class OutfitService {
-  public async addNewOutfit(data: AddNewOutfitData): Promise<OutfitClothes[]> {
+  public async create(data: CreateOutfitData): Promise<OutfitClothes[]> {
     const { userId, clothesIds } = data
 
     const outfit: Outfit = await outfitRepo.create(userId)
@@ -28,7 +28,7 @@ export class OutfitService {
     return outfitClothes
   }
 
-  public async getAllOutfitByUserId(userId: number): Promise<OutfitClothesData[]> {
+  public async getAllByUserId(userId: number): Promise<OutfitClothesData[]> {
     const outfits: Outfit[] = await outfitRepo.findAllByUserId(userId)
 
     const outfitClothes: OutfitClothesData[] = await Promise.all(

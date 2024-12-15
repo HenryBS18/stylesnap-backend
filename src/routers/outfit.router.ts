@@ -13,7 +13,7 @@ outfitRouter.post('/', upload.none(), async (req: Request, res: Response) => {
     const userId = req.token?.id
     const clothesIds = [tops, bottoms, fullbody, outwear, shoes, accessories].filter(e => e != undefined).map(e => parseInt(e))
 
-    const outfitClothes: OutfitClothes[] = await outfitService.addNewOutfit({
+    const outfitClothes: OutfitClothes[] = await outfitService.create({
       userId,
       clothesIds
     })
@@ -36,7 +36,7 @@ outfitRouter.get('/', async (req: Request, res: Response) => {
   try {
     const userId = req.token?.id
 
-    const outfitClothes = await outfitService.getAllOutfitByUserId(userId)
+    const outfitClothes = await outfitService.getAllByUserId(userId)
 
     res.status(200).send({
       data: outfitClothes
