@@ -2,7 +2,7 @@ import { OutfitClothes } from "../types";
 import { db } from "../utils/db";
 
 export class OutfitClothesRepo {
-  public async createOutfitClothes(outfitClothes: OutfitClothes): Promise<OutfitClothes> {
+  public async create(outfitClothes: OutfitClothes): Promise<OutfitClothes> {
     return await db.outfitClothes.create({
       data: {
         outfitId: outfitClothes.outfitId,
@@ -11,7 +11,7 @@ export class OutfitClothesRepo {
     })
   }
 
-  public async findOutfitClothesByOutfitId(outfitId: number): Promise<OutfitClothes[]> {
+  public async findAllByOutfitId(outfitId: number): Promise<OutfitClothes[]> {
     return await db.outfitClothes.findMany({
       where: {
         outfitId
@@ -22,7 +22,7 @@ export class OutfitClothesRepo {
     })
   }
 
-  public async deleteOutfitClothesByOutfitId(outfitId: number): Promise<void> {
+  public async deleteByOutfitId(outfitId: number): Promise<void> {
     await db.outfitClothes.deleteMany({
       where: {
         outfitId

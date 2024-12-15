@@ -14,7 +14,7 @@ export class OutfitService {
     try {
       outfitClothes = await Promise.all(
         clothesIds.map((id) =>
-          outfitClothesRepo.createOutfitClothes({
+          outfitClothesRepo.create({
             outfitId: outfit.id!,
             clothesId: id,
           })
@@ -35,7 +35,7 @@ export class OutfitService {
       outfits.map(async (e) => {
         return {
           id: e.id,
-          clothes: await outfitClothesRepo.findOutfitClothesByOutfitId(e.id!),
+          clothes: await outfitClothesRepo.findAllByOutfitId(e.id!),
         };
       })
     ) as OutfitClothesData[]
@@ -45,7 +45,7 @@ export class OutfitService {
 
   public async deleteById(id: number): Promise<void> {
     try {
-      await outfitClothesRepo.deleteOutfitClothesByOutfitId(id)
+      await outfitClothesRepo.deleteByOutfitId(id)
       await outfitRepo.deleteById(id)
     } catch (error) {
       throw new Error('Invalid outfit id')
