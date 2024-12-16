@@ -61,3 +61,13 @@ export interface CollectionOutfit {
   collectionId: number
   outfitId: number
 }
+
+export interface AddNewOutfitToCollectionData {
+  collectionId: number
+  outfitId: number
+}
+
+export interface DeleteOutfitFromCollectionData {
+  collectionId: number
+  outfitId: number
+}
