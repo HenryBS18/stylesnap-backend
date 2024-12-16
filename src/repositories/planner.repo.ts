@@ -20,7 +20,15 @@ export class PlannerRepo {
         userId
       },
       include: {
-        outfit: true
+        outfit: {
+          include: {
+            outfitClothes: {
+              include: {
+                clothes: true
+              }
+            }
+          }
+        }
       }
     })
   }
