@@ -71,3 +71,10 @@ export interface DeleteOutfitFromCollectionData {
   collectionId: number
   outfitId: number
 }
+
+export interface Planner {
+  id?: number
+  userId: number
+  outfitId: number
+  date: Date
+}
