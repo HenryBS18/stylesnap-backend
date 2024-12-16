@@ -4,5 +4,6 @@ import { OutfitRepo } from "./outfit.repo";
 import { OutfitClothesRepo } from "./outfitclothes.repo";
 import { CollectionRepo } from "./collection.repo";
 import { CollectionOutfitRepo } from "./collectionoutfit.repo";
+import { PlannerRepo } from "./planner.repo";
 
-export { UserRepo, ClothesRepo, OutfitRepo, OutfitClothesRepo, CollectionRepo, CollectionOutfitRepo }
+export { UserRepo, ClothesRepo, OutfitRepo, OutfitClothesRepo, CollectionRepo, CollectionOutfitRepo, PlannerRepo }
