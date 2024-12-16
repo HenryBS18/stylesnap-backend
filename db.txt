@@ -1,0 +1,55 @@
+user:
+  - id: int
+  - first-name: string
+  - last-name: string
+  - email: string
+  - password: string
+
+clothes:
+  - id: int
+  - name: string?
+  - type: string
+  - sub-type: string
+  - color: string
+  - brand: string
+  - photoUrl: string
+  - user-id: int
+  - created-at: datetime
+
+outfit:
+  - id: int
+  - user-id: int
+  - created-at: datetime
+
+outfit-clothes:
+  - outfit-id: int
+  - clothes-id: int
+
+collections:
+  - id: int
+  - name: string
+  - type: string (packing list | favorite)
+  - created-at: datetime
+
+collections-outfit:
+  - collection-id: int
+  - outfit-id: int
+
+planner:
+  - id: int
+  - user-id: int
+  - date: datetime
+
+outfit-planner:
+  - id: int
+  - planner-id: int
+  - outfit-id: int
+
+prompt:
+  - id: int
+  - user-id: int
+
+prompt-message:
+  - prompt-id: int
+  - message: string
+  - from: string (user | bot)
