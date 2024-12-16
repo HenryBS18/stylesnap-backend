@@ -49,7 +49,7 @@ model Outfit {
 
   outfitClothes    OutfitClothes[]
   collectionOutfit CollectionOutfit[]
-  outfitPlanner    OutfitPlanner[]
+  outfitPlanner    PlannerOutfit[]
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -89,15 +89,15 @@ model Planner {
   date   DateTime
   userId Int
 
-  outfitPlanner OutfitPlanner[]
+  plannerOutfit PlannerOutfit[]
 
   user User @relation(fields: [userId], references: [id])
 }
 
-model OutfitPlanner {
+model PlannerOutfit {
   id        Int @id @default(autoincrement())
-  outfitId  Int
   plannerId Int
+  outfitId  Int
 
   outfit  Outfit  @relation(fields: [outfitId], references: [id])
   planner Planner @relation(fields: [plannerId], references: [id])
