@@ -49,7 +49,7 @@ model Outfit {
 
   outfitClothes    OutfitClothes[]
   collectionOutfit CollectionOutfit[]
-  outfitPlanner    PlannerOutfit[]
+  planner          Planner[]
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -85,22 +85,13 @@ model CollectionOutfit {
 }
 
 model Planner {
-  id     Int      @id @default(autoincrement())
-  date   DateTime
-  userId Int
+  id       Int      @id @default(autoincrement())
+  date     DateTime
+  userId   Int
+  outfitId Int
 
-  plannerOutfit PlannerOutfit[]
-
-  user User @relation(fields: [userId], references: [id])
-}
-
-model PlannerOutfit {
-  id        Int @id @default(autoincrement())
-  plannerId Int
-  outfitId  Int
-
-  outfit  Outfit  @relation(fields: [outfitId], references: [id])
-  planner Planner @relation(fields: [plannerId], references: [id])
+  outfit Outfit @relation(fields: [outfitId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model PromptHistory {
