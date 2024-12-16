@@ -28,13 +28,14 @@ model User {
 }
 
 model Clothes {
-  id       Int    @id @default(autoincrement())
-  name     String
-  type     String
-  color    String
-  brand    String
-  photoUrl String @db.Text
-  userId   Int
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  name      String
+  type      String
+  color     String
+  brand     String
+  photoUrl  String   @db.Text
+  createdAt DateTime @default(now())
 
   outfitClothes OutfitClothes[]
 
@@ -42,8 +43,9 @@ model Clothes {
 }
 
 model Outfit {
-  id     Int @id @default(autoincrement())
-  userId Int
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime @default(now())
 
   outfitClothes    OutfitClothes[]
   collectionOutfit CollectionOutfit[]
@@ -62,10 +64,11 @@ model OutfitClothes {
 }
 
 model Collection {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  name   String
-  type   String
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  name      String
+  type      String
+  createdAt DateTime @default(now())
 
   collectionOutfit CollectionOutfit[]
 
