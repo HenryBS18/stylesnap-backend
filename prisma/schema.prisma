@@ -20,11 +20,11 @@ model User {
   email     String
   password  String
 
-  clothes       Clothes[]
-  outfit        Outfit[]
-  collection    Collection[]
-  planner       Planner[]
-  promptHistory PromptHistory[]
+  clothes    Clothes[]
+  outfit     Outfit[]
+  collection Collection[]
+  planner    Planner[]
+  prompt     Prompt[]
 }
 
 model Clothes {
@@ -94,19 +94,19 @@ model Planner {
   user   User   @relation(fields: [userId], references: [id])
 }
 
-model PromptHistory {
+model Prompt {
   id     Int @id @default(autoincrement())
   userId Int
 
-  promptHistoryMessage PromptHistoryMessage[]
+  promptMessage PromptMessage[]
 
   user User @relation(fields: [userId], references: [id])
 }
 
-model PromptHistoryMessage {
-  id              Int    @id @default(autoincrement())
-  message         String @db.Text
-  promptHistoryId Int
+model PromptMessage {
+  id       Int    @id @default(autoincrement())
+  message  String @db.Text
+  promptId Int
 
-  promptHistory PromptHistory @relation(fields: [promptHistoryId], references: [id])
+  prompt Prompt @relation(fields: [promptId], references: [id])
 }
