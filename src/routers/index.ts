@@ -6,6 +6,7 @@ import { clothesRouter } from "./clothes.router";
 import { outfitRouter } from "./outfit.router";
 import { collectionRouter } from "./collection.router";
 import { plannerRouter } from "./planner.router";
+import { promptRouter } from "./prompt.router";
 
 export const router: Router = Router()
 
@@ -14,3 +15,4 @@ router.use('/clothes', authMiddleware, clothesRouter)
 router.use('/outfit', authMiddleware, outfitRouter)
 router.use('/collection', authMiddleware, collectionRouter)
 router.use('/planner', authMiddleware, plannerRouter)
+router.use('/prompt', authMiddleware, promptRouter)
