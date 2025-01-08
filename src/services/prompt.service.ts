@@ -1,8 +1,7 @@
-import { Clothes, CreatePromptData, Prompt, PromptMessage } from "../types"
+import { ClothesPrompt, CreatePromptData, Prompt } from "../types"
 import { PromptMessageRepo, PromptRepo } from "../repositories"
 import { ClothesService } from "./clothes.service"
 import { GeminiService } from "./gemini.service"
-import { Content } from "@google/generative-ai"
 
 const promptRepo: PromptRepo = new PromptRepo()
 const promptMessageRepo: PromptMessageRepo = new PromptMessageRepo()
@@ -14,68 +13,34 @@ export class PromptService {
     return await promptRepo.create(userId)
   }
 
-  public async createPrompt(data: CreatePromptData): Promise<string> {
+  public async createPrompt(data: CreatePromptData): Promise<any> {
     const { userId, promptId, message } = data
 
-    const history: Content[] = []
-    const clothes: Clothes[] = await clothesService.getAllClothesByUserId(userId)
-    console.log(JSON.stringify(clothes));
-    history.push({
-      role: 'user',
-      parts: [
-        {
-          text: JSON.stringify(clothes)
-        }
-      ]
-    })
+    try {
+      const clothes: ClothesPrompt[] = await clothesService.getAllClothesPromptByUserId(userId)
 
-    history.push({
-      role: 'model',
-      parts: [
-        {
-          text: 'you have so many clothes'
-        }
-      ]
-    })
-2
-    history.push({
-      role: 'user',
-      parts: [
-        {
-          text: 'this is my list of clothes, can you help me to choose what clothes combination suit me?, please give clothesId with json format, please dont give any message only the json, give 1 outfit'
-        }
-      ]
-    })
+      const genRes = (await geminiService.createPrompt({
+        clothes: JSON.stringify(clothes),
+        prompt: message
+      })).toString()
 
-    history.push({
-      role: 'model',
-      parts: [
-        {
-          text: "sure i can help you choose outfit based on your clothes list, i will give you response in json format: {clothes: [{'id': <clothesId>,'name': <clothesName>, 'type': <clothesType>}, {clothes: [{'id': <clothesId>,'name': <clothesName>, 'type': <clothesType>}, ..., ...]}"
-        }
-      ]
-    })
+      await promptMessageRepo.create({
+        promptId, message, role: 'user'
+      })
 
-    const genRes = await geminiService.createPrompt(history, message)
+      await promptMessageRepo.create({
+        promptId, message: genRes.toString(), role: 'model'
+      })
 
-    history.push({
-      role: 'user',
-      parts: [
-        {
-          text: message
-        }
-      ]
-    })
+      const parsedClothes: ClothesPrompt[] = JSON.parse(genRes.replace('```json', '').replace('```', ''))
 
-    await promptMessageRepo.create({
-      promptId, message, role: 'user'
-    })
+      return parsedClothes
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message)
+      }
+    }
 
-    await promptMessageRepo.create({
-      promptId, message: genRes.toString(), role: 'model'
-    })
-
-    return genRes.toString()
   }
 
   public async getAllPromptByUserId(userId: number): Promise<Prompt[]> {
