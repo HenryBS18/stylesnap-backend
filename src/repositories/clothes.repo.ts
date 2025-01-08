@@ -1,4 +1,4 @@
-import { Clothes } from "types";
+import { Clothes, ClothesPrompt } from "types";
 import { db } from "../utils/db";
 
 export class ClothesRepo {
@@ -24,6 +24,21 @@ export class ClothesRepo {
     return await db.clothes.findMany({
       where: {
         userId
+      }
+    })
+  }
+
+  public async findAllByUserIdForPrompt(userId: number): Promise<ClothesPrompt[]> {
+    return await db.clothes.findMany({
+      where: {
+        userId
+      },
+      select: {
+        id: true,
+        name: true,
+        type: true,
+        color: true,
+        brand: true,
       }
     })
   }

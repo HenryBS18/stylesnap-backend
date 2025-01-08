@@ -28,6 +28,14 @@ export interface Clothes {
   userId: number
 }
 
+export interface ClothesPrompt {
+  id: number
+  name: string
+  type: string
+  color: string
+  brand: string
+}
+
 export interface Outfit {
   id?: number
   userId: number
@@ -99,9 +107,7 @@ export interface CreatePromptData {
   role: string
 }
 
-export interface PromptMessage {
-  id?: number
-  promptId: number
-  role: string
-  message: string
+export interface CreateGeminiPromptData {
+  clothes: string
+  prompt: string
 }
