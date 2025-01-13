@@ -95,21 +95,11 @@ model Planner {
 }
 
 model Prompt {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  updatedAt DateTime @default(now())
-
-  promptMessage PromptMessage[]
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  createdAt     DateTime @default(now())
+  userMessage       String   @db.Text
+  resultMessage String   @db.Text
 
   user User @relation(fields: [userId], references: [id])
-}
-
-model PromptMessage {
-  id        Int      @id @default(autoincrement())
-  message   String   @db.Text
-  role      String
-  createdAt DateTime @default(now())
-  promptId  Int
-
-  prompt Prompt @relation(fields: [promptId], references: [id])
 }
