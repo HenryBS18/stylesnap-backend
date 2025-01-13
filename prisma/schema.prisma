@@ -28,14 +28,15 @@ model User {
 }
 
 model Clothes {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  name      String
-  type      String
-  color     String
-  brand     String
-  photoUrl  String   @db.Text
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  name        String
+  type        String
+  color       String
+  brand       String
+  photoUrl    String   @db.Text
+  createdAt   DateTime @default(now())
+  description String   @db.Text
 
   outfitClothes OutfitClothes[]
 
@@ -98,7 +99,7 @@ model Prompt {
   id            Int      @id @default(autoincrement())
   userId        Int
   createdAt     DateTime @default(now())
-  userMessage       String   @db.Text
+  userMessage   String   @db.Text
   resultMessage String   @db.Text
 
   user User @relation(fields: [userId], references: [id])
