@@ -90,21 +90,14 @@ export interface Planner {
 export interface Prompt {
   id?: number
   userId: number
-  updatedAt: Date
-}
-
-export interface PromptMessage {
-  id?: number
-  promptId: number
-  message: string
-  role: string
+  createdAt?: Date
+  userMessage: string
+  resultMessage: string
 }
 
 export interface CreatePromptData {
   userId: number
-  promptId: number
   message: string
-  role: string
 }
 
 export interface CreateGeminiPromptData {
