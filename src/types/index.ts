@@ -25,6 +25,7 @@ export interface Clothes {
   color: string
   brand: string
   photoUrl: string,
+  description: string
   userId: number
 }
 

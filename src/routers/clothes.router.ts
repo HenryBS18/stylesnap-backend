@@ -1,10 +1,11 @@
 import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import { UploadApiResponse } from 'cloudinary'
-import { ClothesService } from '../services'
+import { ClothesService, GeminiService } from '../services'
 import { Clothes } from '../types'
 
 const clothesService: ClothesService = new ClothesService()
+const geminiService: GeminiService = new GeminiService()
 const upload = multer({
   dest: 'uploads/',
 })
@@ -23,11 +24,13 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
       return
     }
 
+    const description: string = await geminiService.createImageDescription(file)
+
     const uploadResult: UploadApiResponse = await clothesService.uploadClothesImage(file)
     const photoUrl: string = uploadResult.url
 
     const clothes: Clothes = {
-      name, type, color, brand, photoUrl, userId
+      name, type, color, brand, photoUrl, description, userId
     }
 
     await clothesService.AddNewClothes(clothes)
@@ -82,10 +85,10 @@ clothesRouter.get('/:id', async (req: Request, res: Response) => {
 clothesRouter.put('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id as string, 10)
-    const { name, type, color, brand, photoUrl, userId } = req.body
+    const { name, type, color, brand, photoUrl, description, userId } = req.body
 
     const clothes: Clothes = {
-      id, name, type, color, brand, photoUrl, userId
+      id, name, type, color, brand, photoUrl, description, userId
     }
 
     await clothesService.updateClothesById(clothes)
