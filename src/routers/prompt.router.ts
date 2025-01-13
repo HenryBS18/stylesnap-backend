@@ -1,30 +1,24 @@
 import { Router, Request, Response } from "express";
 import multer from "multer";
-import { PromptService } from "../services";
-import { Prompt } from "types";
+import { PromptService, GeminiService } from "../services";
+import { Prompt } from "../types";
 
 const promptService: PromptService = new PromptService()
-const upload = multer()
+const geminiService: GeminiService = new GeminiService()
+const upload = multer({
+  dest: 'uploads/',
+})
 export const promptRouter: Router = Router()
 
 promptRouter.post('/', async (req: Request, res: Response) => {
   const userId = req.token?.id
+  const { message } = req.body
 
-  const p = await promptService.create(userId)
-  res.status(200).send({
-    p
-  })
-})
-
-promptRouter.post('/create', upload.none(), async (req: Request, res: Response) => {
-  const userId = req.token?.id
-  const { promptId, role, message } = req.body
-
-  const p = await promptService.createPrompt({
-    userId, promptId: parseInt(promptId), role, message
+  const prompt: Prompt = await promptService.create({
+    userId, message
   })
 
-  res.status(200).send(p)
+  res.status(200).send(prompt)
 })
 
 promptRouter.get('/', async (req: Request, res: Response) => {
@@ -36,5 +30,14 @@ promptRouter.get('/', async (req: Request, res: Response) => {
     data: [
       ...prompts
     ]
+  })
+})
+
+promptRouter.post('/desc', upload.single('image'), async (req: Request, res: Response) => {
+  const file = req.file
+
+  const text = await geminiService.getImageDescription(file!)
+  res.status(200).send({
+    result: text
   })
 })
