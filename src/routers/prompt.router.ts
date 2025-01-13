@@ -36,7 +36,7 @@ promptRouter.get('/', async (req: Request, res: Response) => {
 promptRouter.post('/desc', upload.single('image'), async (req: Request, res: Response) => {
   const file = req.file
 
-  const text = await geminiService.getImageDescription(file!)
+  const text = await geminiService.createImageDescription(file!)
   res.status(200).send({
     result: text
   })
