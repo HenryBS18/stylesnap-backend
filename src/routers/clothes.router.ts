@@ -12,6 +12,8 @@ const upload = multer({
 export const clothesRouter: Router = Router()
 
 clothesRouter.post('/', upload.single('image'), async (req: Request, res: Response) => {
+  let uuid: string | undefined
+
   try {
     const { name, type, color, brand } = req.body
     const file = req.file
@@ -29,6 +31,8 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
     const uploadResult: UploadApiResponse = await clothesService.uploadClothesImage(file)
     const photoUrl: string = uploadResult.url
 
+    uuid = photoUrl.split('clothes/')[1].split('.')[0]
+
     const clothes: Clothes = {
       name, type, color, brand, photoUrl, description, userId
     }
@@ -38,7 +42,9 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
     res.status(200).send()
   } catch (error) {
     if (error instanceof Error) {
-      res.status(404).send({
+      if (uuid) await clothesService.deleteImage(uuid)
+
+      res.status(400).send({
         message: error.message
       })
     }
