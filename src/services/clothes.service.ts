@@ -62,4 +62,14 @@ export class ClothesService {
 
     return result
   }
+
+  public async deleteImage(id: string): Promise<boolean> {
+    const result = await cloudinary.uploader.destroy('clothes/' + id)
+
+    if (result === 'ok') {
+      return true
+    }
+
+    return false
+  }
 }
