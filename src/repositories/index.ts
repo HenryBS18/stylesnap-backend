@@ -6,6 +6,5 @@ import { CollectionRepo } from "./collection.repo";
 import { CollectionOutfitRepo } from "./collectionoutfit.repo";
 import { PlannerRepo } from "./planner.repo";
 import { PromptRepo } from "./prompt.repo";
-import { PromptMessageRepo } from "./promptmessage.repo";
 
-export { UserRepo, ClothesRepo, OutfitRepo, OutfitClothesRepo, CollectionRepo, CollectionOutfitRepo, PlannerRepo, PromptRepo, PromptMessageRepo }
+export { UserRepo, ClothesRepo, OutfitRepo, OutfitClothesRepo, CollectionRepo, CollectionOutfitRepo, PlannerRepo, PromptRepo, }
