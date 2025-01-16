@@ -23,7 +23,6 @@ export interface Clothes {
   name: string
   type: string
   color: string
-  brand: string
   photoUrl: string,
   description: string
   userId: number
@@ -34,7 +33,6 @@ export interface ClothesPrompt {
   name: string
   type: string
   color: string
-  brand: string
 }
 
 export interface Outfit {

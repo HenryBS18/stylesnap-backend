@@ -15,7 +15,7 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
   let uuid: string | undefined
 
   try {
-    const { name, type, color, brand } = req.body
+    const { name, type, color } = req.body
     const file = req.file
     const userId = req.token?.id
 
@@ -29,12 +29,12 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
     const description: string = await geminiService.createImageDescription(file)
 
     const uploadResult: UploadApiResponse = await clothesService.uploadClothesImage(file)
-    const photoUrl: string = uploadResult.url
+    const photoUrl: string = uploadResult.url.replace('http', 'https')
 
     uuid = photoUrl.split('clothes/')[1].split('.')[0]
 
     const clothes: Clothes = {
-      name, type, color, brand, photoUrl, description, userId
+      name, type, color, photoUrl, description, userId
     }
 
     await clothesService.AddNewClothes(clothes)
@@ -91,10 +91,10 @@ clothesRouter.get('/:id', async (req: Request, res: Response) => {
 clothesRouter.put('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id as string, 10)
-    const { name, type, color, brand, photoUrl, description, userId } = req.body
+    const { name, type, color, photoUrl, description, userId } = req.body
 
     const clothes: Clothes = {
-      id, name, type, color, brand, photoUrl, description, userId
+      id, name, type, color, photoUrl, description, userId
     }
 
     await clothesService.updateClothesById(clothes)

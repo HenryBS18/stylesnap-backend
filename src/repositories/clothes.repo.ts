@@ -3,11 +3,11 @@ import { db } from "../utils/db";
 
 export class ClothesRepo {
   public async create(clothes: Clothes): Promise<Clothes> {
-    const { name, type, color, brand, photoUrl, description, userId } = clothes
+    const { name, type, color, photoUrl, description, userId } = clothes
 
     return await db.clothes.create({
       data: {
-        name, type, color, brand, photoUrl, description, userId
+        name, type, color, photoUrl, description, userId
       }
     })
   }
@@ -38,17 +38,16 @@ export class ClothesRepo {
         name: true,
         type: true,
         color: true,
-        brand: true,
       }
     })
   }
 
   public async updateById(clothes: Clothes): Promise<Clothes> {
-    const { id, name, type, color, brand, photoUrl } = clothes
+    const { id, name, type, color, photoUrl } = clothes
 
     return await db.clothes.update({
       data: {
-        name, type, color, brand, photoUrl
+        name, type, color, photoUrl
       },
       where: {
         id
