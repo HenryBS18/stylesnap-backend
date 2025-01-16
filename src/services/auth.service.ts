@@ -5,7 +5,7 @@ import { LoginData, RegisterData, User } from "../types";
 
 const userRepo: UserRepo = new UserRepo()
 const secret: string = process.env.JWT_SECRET!
-const expiresIn: number = 60 * 60 * 24 * 30
+const expiresIn: number = 60 * 60 * 24 * 30 * 1000
 
 export class AuthService {
   public async register(data: RegisterData): Promise<string> {
