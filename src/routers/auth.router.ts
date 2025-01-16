@@ -3,6 +3,7 @@ import { AuthService } from '../services'
 
 const userService: AuthService = new AuthService()
 export const authRouter: Router = Router()
+const expiresIn: number = 60 * 60 * 24 * 30 * 1000
 
 authRouter.post('/register', async (req: Request, res: Response) => {
   try {
@@ -15,7 +16,9 @@ authRouter.post('/register', async (req: Request, res: Response) => {
       password
     })
 
-    res.cookie('session', token).status(200).send()
+    res.cookie('session', token, {
+      httpOnly: false, expires: new Date(Date.now() + expiresIn)
+    }).status(200).send()
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
@@ -31,7 +34,9 @@ authRouter.post('/login', async (req: Request, res: Response) => {
 
     const token: string = await userService.login({ email, password })
 
-    res.cookie('session', token).status(200).send()
+    res.cookie('session', token, {
+      httpOnly: false, expires: new Date(Date.now() + expiresIn)
+    }).status(200).send()
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({
