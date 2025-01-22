@@ -38,6 +38,7 @@ export class ClothesRepo {
         name: true,
         type: true,
         color: true,
+        description: true
       }
     })
   }
