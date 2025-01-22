@@ -14,7 +14,13 @@ export class GeminiService {
           role: 'user',
           parts: [
             {
-              text: 'i want you to choose me an outfit based on my clothes, i will give you my clothes list, give me the answer in json format like this: [{"id": <clothesId>,"name": <clothesName>, "type": <clothesType>}, {clothes: [{"id": <clothesId>,"name": <clothesName>, "type": <clothesType>}, ..., ...]. give the answer dont ask back to me'
+              text: 'i want you to choose me 3 outfit based on my clothes, i will give you my clothes list'
+            },
+            {
+              text: 'give me the answer in json format like this: [[{"id":<clothesId>,"name":<clothesName>,"type":<clothesType>},...,...],[{"id":<clothesId>,"name":<clothesName>,"type":<clothesType>},...,...],[{"id":<clothesId>,"name":<clothesName>,"type":<clothesType>},...,...]]'
+            },
+            {
+              text: 'give the answer dont ask back to me'
             },
             {
               text: clothes,
