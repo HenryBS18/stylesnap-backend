@@ -10,7 +10,7 @@ const upload = multer({
 })
 export const promptRouter: Router = Router()
 
-promptRouter.post('/', async (req: Request, res: Response) => {
+promptRouter.post('/', upload.none(), async (req: Request, res: Response) => {
   const userId = req.token?.id
   const { message } = req.body
 
@@ -18,7 +18,14 @@ promptRouter.post('/', async (req: Request, res: Response) => {
     userId, message
   })
 
-  res.status(200).send(prompt)
+  const resp = prompt.resultMessage.trim().replace('```json', '').replace('```', '').replace('\n', '')
+
+  const p = {
+    ...prompt,
+    resultMessage: JSON.parse(resp)
+  }
+
+  res.status(200).send(p)
 })
 
 promptRouter.get('/', async (req: Request, res: Response) => {
