@@ -33,6 +33,7 @@ export interface ClothesPrompt {
   name: string
   type: string
   color: string
+  description: string
 }
 
 export interface Outfit {
