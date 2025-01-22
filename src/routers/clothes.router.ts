@@ -37,9 +37,9 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
       name, type, color, photoUrl, description, userId
     }
 
-    await clothesService.AddNewClothes(clothes)
+    const response = await clothesService.AddNewClothes(clothes)
 
-    res.status(200).send()
+    res.status(200).send(response)
   } catch (error) {
     if (error instanceof Error) {
       if (uuid) await clothesService.deleteImage(uuid)
