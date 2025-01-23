@@ -38,7 +38,7 @@ export interface ClothesPrompt {
 
 export interface Outfit {
   id?: number
-  userId: number
+  userId?: number
 }
 
 export interface OutfitClothes {
