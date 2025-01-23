@@ -17,7 +17,7 @@ collectionRouter.post('/', upload.none(), async (req: Request, res: Response) =>
     })
 
     res.status(200).send({
-      collection
+      ...collection
     })
   } catch (error) {
     if (error instanceof Error) {
@@ -34,9 +34,7 @@ collectionRouter.get('/', async (req: Request, res: Response) => {
     const collections: Collection[] = await collectionService.getAllCollectionByUserId(userId)
 
     res.status(200).send({
-      data: [
-        ...collections
-      ]
+      collections
     })
   } catch (error) {
     if (error instanceof Error) {
