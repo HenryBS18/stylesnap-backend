@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { OutfitService } from '../services'
-import { OutfitClothes } from '../types'
+import { Outfit, OutfitClothes } from '../types'
 import multer from 'multer'
 
 const outfitService: OutfitService = new OutfitService()
@@ -41,6 +41,21 @@ outfitRouter.get('/', async (req: Request, res: Response) => {
     res.status(200).send({
       data: outfitClothes
     })
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).send({
+        message: error.message
+      })
+    }
+  }
+})
+
+outfitRouter.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const id: number = parseInt(req.params.id)
+    const outfit: OutfitClothes[] = await outfitService.getOutfitById(id)
+
+    res.status(200).send(outfit)
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({

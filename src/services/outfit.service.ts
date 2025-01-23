@@ -51,4 +51,8 @@ export class OutfitService {
       throw new Error('Invalid outfit id')
     }
   }
+
+  public async getOutfitById(id: number): Promise<OutfitClothes[]> {
+    return await outfitClothesRepo.findAllByOutfitId(id)
+  }
 }
