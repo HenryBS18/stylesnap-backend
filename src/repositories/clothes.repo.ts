@@ -1,9 +1,9 @@
-import { Clothes, ClothesPrompt } from "types";
+import { Clothes, ClothesPrompt, ClothesTypeAndPhoto } from "types";
 import { db } from "../utils/db";
 
 export class ClothesRepo {
   public async create(clothes: Clothes): Promise<Clothes> {
-    const { name, type, color, photoUrl, description, userId } = clothes
+    const { name, type, color, photoUrl, description = '', userId = 0 } = clothes
 
     return await db.clothes.create({
       data: {
@@ -24,6 +24,13 @@ export class ClothesRepo {
     return await db.clothes.findMany({
       where: {
         userId
+      },
+      select: {
+        id: true,
+        name: true,
+        color: true,
+        type: true,
+        photoUrl: true,
       }
     })
   }
@@ -63,4 +70,32 @@ export class ClothesRepo {
       }
     })
   }
+
+  
+  public async getClothesByIdPrompt(id: number): Promise<ClothesTypeAndPhoto | null> {
+    return await db.clothes.findFirst({
+      where: {
+        id
+      },
+      select: {
+        id: true,
+        type: true,
+        photoUrl: true
+      }
+    })
+  }
+
+  public async getAllClothesTypeAndPhoto(userId: number): Promise<ClothesTypeAndPhoto[]> {
+    return await db.clothes.findMany({
+      where: {
+        userId
+      },
+      select: {
+        id: true,
+        type: true,
+        photoUrl: true
+      }
+    })
+  }
 }
+
