@@ -22,6 +22,14 @@ export class OutfitClothesRepo {
     })
   }
 
+  public async findByOutfitId(outfitId: number): Promise<OutfitClothes | null> {
+    return await db.outfitClothes.findFirst({
+      where: {
+        outfitId
+      }
+    })
+  }
+
   public async deleteByOutfitId(outfitId: number): Promise<void> {
     await db.outfitClothes.deleteMany({
       where: {

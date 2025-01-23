@@ -25,4 +25,20 @@ export class OutfitRepo {
       }
     })
   }
+
+  public async findById(id: number): Promise<Outfit | null> {
+    return await db.outfit.findFirst({
+      where: {
+        id
+      },
+      select: {
+        id: true,
+        outfitClothes: {
+          select: {
+            clothes: true
+          }
+        }
+      }
+    })
+  }
 }
