@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import { UploadApiResponse } from 'cloudinary'
 import { ClothesService, GeminiService } from '../services'
-import { Clothes } from '../types'
+import { Clothes, ClothesTypeAndPhoto } from '../types'
 
 const clothesService: ClothesService = new ClothesService()
 const geminiService: GeminiService = new GeminiService()
@@ -54,6 +54,16 @@ clothesRouter.post('/', upload.single('image'), async (req: Request, res: Respon
 clothesRouter.get('/', async (req: Request, res: Response) => {
   try {
     const userId: number = req.token?.id
+    const { typePhoto } = req.query
+    console.log(typePhoto);
+
+    if (typePhoto === 'true') {
+      const clothes: ClothesTypeAndPhoto[] = await clothesService.getAllClothesTypeAndPhoto(userId)
+
+      res.status(200).send(clothes)
+      return
+    }
+
     const clothes: Clothes[] = await clothesService.getAllClothesByUserId(userId)
 
     res.status(200).send({
@@ -75,9 +85,7 @@ clothesRouter.get('/:id', async (req: Request, res: Response) => {
     const clothes: Clothes = await clothesService.getClothesById(id)
 
     res.status(200).send({
-      data: {
-        ...clothes
-      }
+      ...clothes
     })
   } catch (error) {
     if (error instanceof Error) {
@@ -116,6 +124,21 @@ clothesRouter.delete('/:id', async (req: Request, res: Response) => {
     await clothesService.deleteClothesById(id)
 
     res.status(200).send()
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).send({
+        message: error.message
+      })
+    }
+  }
+})
+
+clothesRouter.get('/type-photo', async (req: Request, res: Response) => {
+  try {
+    const userId: number = req.token?.id
+    const clothes: ClothesTypeAndPhoto[] = await clothesService.getAllClothesTypeAndPhoto(userId)
+
+    res.status(200).send(clothes)
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send({

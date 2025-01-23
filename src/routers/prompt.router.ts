@@ -1,10 +1,11 @@
 import { Router, Request, Response } from "express";
 import multer from "multer";
-import { PromptService, GeminiService } from "../services";
+import { PromptService, GeminiService, ClothesService } from "../services";
 import { Prompt } from "../types";
 
 const promptService: PromptService = new PromptService()
 const geminiService: GeminiService = new GeminiService()
+const clothesService: ClothesService = new ClothesService()
 const upload = multer({
   dest: 'uploads/',
 })
@@ -20,9 +21,20 @@ promptRouter.post('/', upload.none(), async (req: Request, res: Response) => {
 
   const resp = prompt.resultMessage.trim().replace('```json', '').replace('```', '').replace('\n', '')
 
+  const object = JSON.parse(resp)
+
+  const clothes = await Promise.all(
+    object.map(async (obj: any) => {
+      const clothesPromises = obj.map((item: any) =>
+        clothesService.getClothesPromptResult(item.id)
+      );
+      return Promise.all(clothesPromises);
+    })
+  );
+
   const p = {
     ...prompt,
-    resultMessage: JSON.parse(resp)
+    resultMessage: clothes
   }
 
   res.status(200).send(p)
