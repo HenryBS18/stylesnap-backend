@@ -24,8 +24,8 @@ export interface Clothes {
   type: string
   color: string
   photoUrl: string,
-  description: string
-  userId: number
+  description?: string
+  userId?: number
 }
 
 export interface ClothesPrompt {
@@ -103,4 +103,10 @@ export interface CreatePromptData {
 export interface CreateGeminiPromptData {
   clothes: string
   prompt: string
+}
+
+export interface ClothesTypeAndPhoto {
+  id: number
+  type: string
+  photoUrl: string
 }
