@@ -55,7 +55,6 @@ clothesRouter.get('/', async (req: Request, res: Response) => {
   try {
     const userId: number = req.token?.id
     const { typePhoto } = req.query
-    console.log(typePhoto);
 
     if (typePhoto === 'true') {
       const clothes: ClothesTypeAndPhoto[] = await clothesService.getAllClothesTypeAndPhoto(userId)
