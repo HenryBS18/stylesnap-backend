@@ -1,5 +1,5 @@
 import { ClothesRepo } from "../repositories";
-import { Clothes, ClothesPrompt } from "../types";
+import { Clothes, ClothesPrompt, ClothesTypeAndPhoto } from "../types";
 import { UploadApiResponse, v2 } from 'cloudinary'
 import crypto from 'crypto'
 import fs from 'fs'
@@ -71,5 +71,13 @@ export class ClothesService {
     }
 
     return false
+  }
+
+  public async getClothesPromptResult(id: number): Promise<ClothesTypeAndPhoto | null> {
+    return await clothesRepo.getClothesByIdPrompt(id)
+  }
+
+  public async getAllClothesTypeAndPhoto(userId: number): Promise<ClothesTypeAndPhoto[]> {
+    return await clothesRepo.getAllClothesTypeAndPhoto(userId)
   }
 }
